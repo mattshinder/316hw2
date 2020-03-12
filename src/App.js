@@ -178,6 +178,9 @@ class App extends Component {
   undo = () => {
     this.tps.undoTransaction();
   }
+  redo = () => {
+    this.tps.redoTransaction();
+  }
 
   /**
    * resetTransactions - This method clears all the transactions in
@@ -195,6 +198,9 @@ class App extends Component {
    */
   canUndo = () => {
     return this.tps.hasTransactionToUndo();
+  }
+  canRedo = () => {
+    return this.tps.hasTransactionToRedo();
   }
 
   // THERE ARE SEVEN FUNCTIONS FOR UPDATING THE App state, TWO OF
@@ -365,7 +371,9 @@ class App extends Component {
           goToHomeCallback={this.goToHomeScreen}                    // NAVIGATION CALLBACK
           changeLogoCallback={this.buildChangeLogoTransaction}  // TRANSACTION CALLBACK
           undoCallback={this.undo}                        // TRANSACTION CALLBACK                       
-          canUndo={this.canUndo}                          // TRANSACTION CALLBACK
+          canUndo={this.canUndo}
+          redoCallback={this.redo}
+          canRedo={this.canRedo}                          // TRANSACTION CALLBACK
 
         />;
       default:

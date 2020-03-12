@@ -7,6 +7,7 @@ class TextEditSidebar extends Component {
         // WE'LL MANAGE THE UI CONTROL
         // VALUES HERE
         this.state = {
+            borderStyle: "solid",
             textColor : "#FF0000",
             fontSize : 24,
             backgroundColor: "#FF0000",
@@ -20,6 +21,9 @@ class TextEditSidebar extends Component {
 
     handleUndo = () => {
         this.props.undoCallback();
+    }
+    handleRedo = () => {
+        this.props.redoCallback();
     }
 
     handleTextColorChange = (event) => {
@@ -66,12 +70,16 @@ class TextEditSidebar extends Component {
         console.log("completeUserEditing");
         console.log("this.state.textColor: " + this.state.textColor);
         this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.props.logo.text, this.state.textColor, this.state.fontSize, this.state.backgroundColor,
-            this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin);
+            this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin, this.state.borderStyle);
     }
 
     render() {
         let undoDisabled = !this.props.canUndo();
         let undoClass = "waves-effect waves-light btn-small";
+        let redoDisabled = !this.props.canRedo();
+        let redoClass = "waves-effect waves-light btn-small";
+        if (redoDisabled)
+            redoClass += "disabled";
         if (undoDisabled)
             undoClass += " disabled";
         return (
@@ -80,6 +88,12 @@ class TextEditSidebar extends Component {
                     <div className="card-content white-text">
                         <button className="waves-effect waves-light btn-small">&#9998;</button>
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
+                    </div>
+                </div>
+                <div className="card blue-grey darken-1">
+                    <div className="card-content white-text">
+                        <button className="waves-effect waves-light btn-small">&#9998;</button>
+                        <button className={redoClass} onClick={this.handleRedo}>Redo</button>
                     </div>
                 </div>
                 <div className="card blue-grey darken-1">
