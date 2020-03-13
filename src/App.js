@@ -179,7 +179,7 @@ class App extends Component {
     this.tps.undoTransaction();
   }
   redo = () => {
-    this.tps.redoTransaction();
+    this.tps.doTransaction();
   }
 
   /**
