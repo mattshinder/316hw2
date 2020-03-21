@@ -310,6 +310,11 @@ class App extends Component {
 
   afterLogoDeleted = () => {
     console.log("App afterLogoDeleted logos: " + this.logosToString(this.state.logos));
+
+    //edit local storage
+    let logosString = JSON.stringify(this.state.logos);
+    localStorage.setItem("recent_work", logosString);
+    
     // FIRST GO HOME
     this.goToHomeScreen();
   }
@@ -369,11 +374,13 @@ class App extends Component {
         return <EditScreen
           logo={this.state.currentLogo}                         // DATA NEEDED BY THIS COMPONENT AND ITS DESCENDANTS
           goToHomeCallback={this.goToHomeScreen}                    // NAVIGATION CALLBACK
+          deleteLogoCallback={this.deleteLogo}                      // NAVIGATION CALLBACK
           changeLogoCallback={this.buildChangeLogoTransaction}  // TRANSACTION CALLBACK
           undoCallback={this.undo}                        // TRANSACTION CALLBACK                       
           canUndo={this.canUndo}
           redoCallback={this.redo}
           canRedo={this.canRedo}                          // TRANSACTION CALLBACK
+          
 
         />;
       default:
