@@ -70,13 +70,14 @@ class TextEditSidebar extends Component {
     }
     handleChange = (event) => {
         console.log("handleTextChange to " + event.target.value);
+        console.log(event.target.value);
         this.setState({ text: event.target.value }, this.completeUserEditing);
     }
 
     completeUserEditing = () => {
         console.log("completeUserEditing");
         console.log("this.state.textColor: " + this.state.textColor);
-        this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.props.logo.text, this.state.textColor, this.state.fontSize, this.state.backgroundColor,
+        this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.state.text, this.state.textColor, this.state.fontSize, this.state.backgroundColor,
             this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin, this.state.borderStyle);
     }
  // <button className="waves-effect waves-light btn-small">&#9998;</button>
@@ -116,7 +117,7 @@ class TextEditSidebar extends Component {
   }}
   trigger={<Button node="button">&#9998;</Button>}
 >
-    <TextInput placeholder type="string" value={this.props.logo.text} onChange={this.handleChange}>Enter a new name</TextInput>
+    <TextInput placeholder type="string" value={this.props.logo.text} onChange={this.handleChange}></TextInput>
 </Modal>
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
                         <button className={redoClass} onClick={this.handleRedo}>Redo</button>
