@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Range } from 'react-materialize'
+import { Range, Modal, Button } from 'react-materialize'
+import TextInput from 'react-materialize/lib/TextInput';
 
 class TextEditSidebar extends Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class TextEditSidebar extends Component {
         // WE'LL MANAGE THE UI CONTROL
         // VALUES HERE
         this.state = {
+            text: this.props.logo.text,
             borderStyle: this.props.logo.borderStyle,
             textColor : this.props.logo.textColor,
             fontSize : this.props.logo.fontSize,
@@ -66,6 +68,10 @@ class TextEditSidebar extends Component {
         console.log("handleMarginChangeComplete to " + event.target.value);
         this.setState({ margin: event.target.value }, this.completeUserEditing);
     }
+    handleChange = (event) => {
+        console.log("handleTextChange to " + event.target.value);
+        this.setState({ text: event.target.value }, this.completeUserEditing);
+    }
 
     completeUserEditing = () => {
         console.log("completeUserEditing");
@@ -73,7 +79,7 @@ class TextEditSidebar extends Component {
         this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.props.logo.text, this.state.textColor, this.state.fontSize, this.state.backgroundColor,
             this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin, this.state.borderStyle);
     }
-
+ // <button className="waves-effect waves-light btn-small">&#9998;</button>
     render() {
         let undoDisabled = !this.props.canUndo();
         let undoClass = "waves-effect waves-light btn-small";
@@ -87,7 +93,31 @@ class TextEditSidebar extends Component {
             <div className="card-panel col s4">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <button className="waves-effect waves-light btn-small">&#9998;</button>
+                        <Modal
+                        actions={[
+                            <Button flat modal="close" node="button" waves="green">Close</Button>
+                        ]}
+  bottomSheet={false}
+  fixedFooter={false}
+  header="Change Text"
+  id="modal-0"
+  options={{
+    dismissible: true,
+    endingTop: '10%',
+    inDuration: 250,
+    onCloseEnd: null,
+    onCloseStart: null,
+    onOpenEnd: null,
+    onOpenStart: null,
+    opacity: 0.5,
+    outDuration: 250,
+    preventScrolling: true,
+    startingTop: '4%'
+  }}
+  trigger={<Button node="button">&#9998;</Button>}
+>
+    <TextInput placeholder type="string" value={this.props.logo.text} onChange={this.handleChange}>Enter a new name</TextInput>
+</Modal>
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
                         <button className={redoClass} onClick={this.handleRedo}>Redo</button>
                     </div>
