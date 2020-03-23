@@ -21,7 +21,6 @@ class TextEditSidebar extends Component {
             margin: this.props.logo.margin
         }
     }
-
     handleUndo = () => {
         this.props.undoCallback();
     }
@@ -35,7 +34,7 @@ class TextEditSidebar extends Component {
     }
 
     handleFontSizeChange = (event) => {
-        console.log("handleTextColorChangeComplete to " + event.target.value);
+        console.log("handleFontSizeChangeComplete to " + event.target.value);
         this.setState({ fontSize: event.target.value }, this.completeUserEditing);
     }
 
@@ -78,7 +77,7 @@ class TextEditSidebar extends Component {
         console.log("completeUserEditing");
         console.log("this.state.textColor: " + this.state.textColor);
         this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.state.text, this.state.textColor, this.state.fontSize, this.state.backgroundColor,
-            this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin, this.state.borderStyle);
+            this.state.borderColor, this.state.borderRadius, this.state.borderWidth, this.state.padding, this.state.margin);
     }
  // <button className="waves-effect waves-light btn-small">&#9998;</button>
     render() {
